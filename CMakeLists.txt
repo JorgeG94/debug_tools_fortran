@@ -7,7 +7,7 @@ project(
   LANGUAGES Fortran)
 
 enable_language(Fortran)
-
+find_package(BLAS)
 # Set the source directory path
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
 
@@ -16,6 +16,10 @@ set(SOURCES
     ${SOURCE_DIR}/debugging_tools.f90
     ${SOURCE_DIR}/printing_utilities.f90
     ${SOURCE_DIR}/string_utilities.f90
+    ${SOURCE_DIR}/output_module.f90
+    ${SOURCE_DIR}/output_helpers.f90
+    ${SOURCE_DIR}/math.f90
+    ${SOURCE_DIR}/tftri.f
 )
 
 if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
@@ -32,3 +36,13 @@ set_target_properties(printing_library PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules"
 )
+
+add_executable(test ${SOURCE_DIR}/main.f90)
+add_executable(compare ${SOURCE_DIR}/compare_math.f90)
+# Set the module directory for the executable
+target_include_directories(test PRIVATE "${CMAKE_BINARY_DIR}/modules")
+target_include_directories(compare PRIVATE "${CMAKE_BINARY_DIR}/modules")
+
+# Link the library to the executable
+target_link_libraries(test PRIVATE printing_library BLAS::BLAS)
+target_link_libraries(compare PRIVATE printing_library BLAS::BLAS)
