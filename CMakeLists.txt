@@ -19,6 +19,7 @@ set(SOURCES
     ${SOURCE_DIR}/output_module.f90
     ${SOURCE_DIR}/output_helpers.f90
     ${SOURCE_DIR}/math.f90
+    ${SOURCE_DIR}/solvers.f90
     ${SOURCE_DIR}/tftri.f
 )
 
@@ -39,10 +40,13 @@ set_target_properties(printing_library PROPERTIES
 
 add_executable(test ${SOURCE_DIR}/main.f90)
 add_executable(compare ${SOURCE_DIR}/compare_math.f90)
+add_executable(compare_solvers ${SOURCE_DIR}/compare_solvers.f90)
 # Set the module directory for the executable
 target_include_directories(test PRIVATE "${CMAKE_BINARY_DIR}/modules")
 target_include_directories(compare PRIVATE "${CMAKE_BINARY_DIR}/modules")
+target_include_directories(compare_solvers PRIVATE "${CMAKE_BINARY_DIR}/modules")
 
 # Link the library to the executable
 target_link_libraries(test PRIVATE printing_library BLAS::BLAS)
 target_link_libraries(compare PRIVATE printing_library BLAS::BLAS)
+target_link_libraries(compare_solvers PRIVATE printing_library BLAS::BLAS)

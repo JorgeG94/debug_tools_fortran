@@ -125,3 +125,26 @@ SUBROUTINE decompress_lower_triangular(packed_matrix, full_matrix, M)
   END DO
 
 END SUBROUTINE decompress_lower_triangular
+
+SUBROUTINE initialize_symmetric_matrix(A, N)
+  IMPLICIT NONE
+  INTEGER, INTENT(IN) :: N
+  DOUBLE PRECISION, INTENT(INOUT) :: A(N,N)
+  INTEGER :: i, j
+
+  CALL random_seed()
+
+  ! Initialize lower triangle and mirror it to the upper triangle
+  DO j = 1, N
+    DO i = j, N
+      CALL random_number(A(i, j))
+      IF (i /= j) THEN
+        A(j, i) = A(i, j)
+      END IF
+    END DO
+  END DO
+
+  write(*,*) A(1,1)
+
+END SUBROUTINE initialize_symmetric_matrix
+
