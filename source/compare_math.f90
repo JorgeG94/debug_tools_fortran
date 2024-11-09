@@ -65,7 +65,7 @@ PROGRAM compare_tftri
   ! Time the original TFTRI
   CALL SYSTEM_CLOCK(COUNT = start_clock)
   do i = 1, n_loops
-  CALL TFTRI(H_original, F, T, WRK(:,1), M, N, LDT)  ! WRK is 1D here
+  CALL by_column_transform(H_original, F, T, WRK(:,1), M, N, LDT)  ! WRK is 1D here
   end do
   CALL SYSTEM_CLOCK(COUNT = end_clock)
   time_original = REAL(end_clock - start_clock) / REAL(clock_rate)
@@ -73,14 +73,14 @@ PROGRAM compare_tftri
   ! Time the optimized TFTRI
   CALL SYSTEM_CLOCK(COUNT = start_clock)
   do i = 1, n_loops
-  CALL TFTRI_BUT_GOOD(H_optimized, F, T, WRK, M, N, LDT)  ! WRK is 2D here
+  CALL dsym_transform(H_optimized, F, T, WRK, M, N, LDT)  ! WRK is 2D here
   end do
   CALL SYSTEM_CLOCK(COUNT = end_clock)
   time_optimized = REAL(end_clock - start_clock) / REAL(clock_rate)
 
   CALL SYSTEM_CLOCK(COUNT = start_clock)
   do i = 1, n_loops
-  CALL TFTRI_DGEMM(H_dgemm, F, T, WRK, M, N, LDT)  ! WRK is 2D here
+  CALL dgemm_transform(H_dgemm, F, T, WRK, M, N, LDT)  ! WRK is 2D here
   end do
   CALL SYSTEM_CLOCK(COUNT = end_clock)
   time_dgemm = REAL(end_clock - start_clock) / REAL(clock_rate)
