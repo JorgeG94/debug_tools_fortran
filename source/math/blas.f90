@@ -1,6 +1,5 @@
 SUBROUTINE TFTRI_BUT_GOOD(H, F, T, WRK, M, N, LDT)
   USE omp_lib
-  use matrix_printer 
   IMPLICIT NONE
 
   ! Input/output arguments
@@ -41,7 +40,6 @@ SUBROUTINE TFTRI_BUT_GOOD(H, F, T, WRK, M, N, LDT)
 END SUBROUTINE TFTRI_BUT_GOOD
 
 SUBROUTINE TFTRI_DGEMM(H, F, T, WRK, M, N, LDT)
-  use matrix_printer 
   USE omp_lib
   IMPLICIT NONE
 
@@ -85,66 +83,31 @@ SUBROUTINE TFTRI_DGEMM(H, F, T, WRK, M, N, LDT)
   RETURN
 END SUBROUTINE TFTRI_DGEMM
 
-SUBROUTINE compress_lower_triangular(full_matrix, packed_matrix, M)
-  IMPLICIT NONE
 
-  ! Input/Output arguments
-  INTEGER, INTENT(IN) :: M                             ! Dimension of the matrix (M x M)
-  DOUBLE PRECISION, DIMENSION(M, M), INTENT(IN) :: full_matrix  ! Full symmetric matrix
-  DOUBLE PRECISION, DIMENSION((M * (M + 1)) / 2), INTENT(OUT) :: packed_matrix  ! Packed output array
+SUBROUTINE TFTRI(H,F,T,WRK,M,N,LDT)
+      use omp_lib
+      double precision :: H(*),F(*),T(LDT,M),WRK(N)
+      double precision, PARAMETER :: ZERO=0.0D+00
+      double precision, PARAMETER :: ONE=1.0D+00
+      double precision, PARAMETER :: SMALL=1.0D-11
+      integer :: M2 
+      integer :: M, N, LDT
 
-  ! Local variables
-  INTEGER :: I, J, IJ
+      M2 = (M*M+M)/2
 
-  ! Initialize packed index
-  IJ = 0
 
-  ! Loop over lower triangular part of full_matrix
-  DO J = 1, M
-     DO I = 1, J
-        IJ = IJ + 1
-        packed_matrix(IJ) = full_matrix(I, J)
-     END DO
-  END DO
+!        THE COMPUTATION HERE IS H = T-DAGGER * (F * T),
+!        WITH THE -DSPMV- FIRST PRODUCING ONE COLUMN OF F*T,
+!        THEN THE -DGEMV- GENERATES AN ENTIRE ROW -J- OF -H-.
 
-END SUBROUTINE compress_lower_triangular
+      DO J = 1,M
+         IJ = (J*J-J)/2
+         CALL DSPMV('U',N,ONE,F,T(1,J),1,ZERO,WRK,1)
+         CALL DGEMV('T',N,J,ONE,T,LDT,WRK,1,ZERO,H(IJ+1),1)
+         DO I=1,J
+            IF (ABS(H(IJ+I)).LT.SMALL) H(IJ+I)=ZERO
+         ENDDO
+      end do
 
-SUBROUTINE decompress_lower_triangular(packed_matrix, full_matrix, M)
-  IMPLICIT NONE
-  INTEGER :: M, I, J, IJ
-  DOUBLE PRECISION, DIMENSION((M * (M + 1)) / 2) :: packed_matrix
-  DOUBLE PRECISION, DIMENSION(M, M) :: full_matrix
-
-  IJ = 0
-  DO J = 1, M
-     DO I = 1, J
-        IJ = IJ + 1
-        full_matrix(I, J) = packed_matrix(IJ)
-        full_matrix(J, I) = packed_matrix(IJ)  ! Symmetric assignment
-     END DO
-  END DO
-
-END SUBROUTINE decompress_lower_triangular
-
-SUBROUTINE initialize_symmetric_matrix(A, N)
-  IMPLICIT NONE
-  INTEGER, INTENT(IN) :: N
-  DOUBLE PRECISION, INTENT(INOUT) :: A(N,N)
-  INTEGER :: i, j
-
-  CALL random_seed()
-
-  ! Initialize lower triangle and mirror it to the upper triangle
-  DO j = 1, N
-    DO i = j, N
-      CALL random_number(A(i, j))
-      IF (i /= j) THEN
-        A(j, i) = A(i, j)
-      END IF
-    END DO
-  END DO
-
-  write(*,*) A(1,1)
-
-END SUBROUTINE initialize_symmetric_matrix
-
+RETURN
+END

@@ -1,6 +1,5 @@
 SUBROUTINE sym_solve(A, X, IPVT, N, LDA, JOB, IERR)
    USE omp_lib
-  use matrix_printer 
    IMPLICIT NONE
    external dlansy
    double precision dlansy
@@ -53,7 +52,6 @@ SUBROUTINE sym_solve(A, X, IPVT, N, LDA, JOB, IERR)
 END SUBROUTINE sym_solve
 
 SUBROUTINE gen_solve(A, X, IPVT, N, LDA, JOB, IERR)
-  use matrix_printer 
    USE omp_lib
    IMPLICIT NONE
    DOUBLE PRECISION, INTENT(INOUT) :: A(LDA, N), X(N)

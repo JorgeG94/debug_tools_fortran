@@ -8,20 +8,9 @@ project(
 
 enable_language(Fortran)
 find_package(BLAS)
+find_package(LAPACK)
 # Set the source directory path
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
-
-# List all source files
-set(SOURCES
-    ${SOURCE_DIR}/debugging_tools.f90
-    ${SOURCE_DIR}/printing_utilities.f90
-    ${SOURCE_DIR}/string_utilities.f90
-    ${SOURCE_DIR}/output_module.f90
-    ${SOURCE_DIR}/output_helpers.f90
-    ${SOURCE_DIR}/math.f90
-    ${SOURCE_DIR}/solvers.f90
-    ${SOURCE_DIR}/tftri.f
-)
 
 if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-fdefault-integer-8)
@@ -30,23 +19,37 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "Intel")
 endif()
 
 # Create the static library
-add_library(printing_library STATIC ${SOURCES})
+set(print_lib printing_library)
+set(math_lib math_library)
+set(debug_exec_name debug)
+set(compare_blas_name compare_blas)
+set(compare_solver_name compare_solver)
+
+add_library(${print_lib} STATIC)
+add_library(${math_lib} STATIC)
+
 
 # Set the library output and module directories
-set_target_properties(printing_library PROPERTIES
+set_target_properties(${print_lib} PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules"
+)
+set_target_properties(${math_lib} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules"
 )
 
-add_executable(test ${SOURCE_DIR}/main.f90)
-add_executable(compare ${SOURCE_DIR}/compare_math.f90)
-add_executable(compare_solvers ${SOURCE_DIR}/compare_solvers.f90)
+add_executable(${debug_exec_name} ${SOURCE_DIR}/main.f90)
+add_executable(${compare_blas_name} ${SOURCE_DIR}/compare_math.f90)
+add_executable(${compare_solver_name} ${SOURCE_DIR}/compare_solvers.f90)
 # Set the module directory for the executable
-target_include_directories(test PRIVATE "${CMAKE_BINARY_DIR}/modules")
-target_include_directories(compare PRIVATE "${CMAKE_BINARY_DIR}/modules")
-target_include_directories(compare_solvers PRIVATE "${CMAKE_BINARY_DIR}/modules")
+target_include_directories(${debug_exec_name} PRIVATE "${CMAKE_BINARY_DIR}/modules")
+target_include_directories(${compare_blas_name} PRIVATE "${CMAKE_BINARY_DIR}/modules")
+target_include_directories(${compare_solver_name} PRIVATE "${CMAKE_BINARY_DIR}/modules")
 
 # Link the library to the executable
-target_link_libraries(test PRIVATE printing_library BLAS::BLAS)
-target_link_libraries(compare PRIVATE printing_library BLAS::BLAS)
-target_link_libraries(compare_solvers PRIVATE printing_library BLAS::BLAS)
+target_link_libraries(${debug_exec_name} PRIVATE ${print_lib} BLAS::BLAS LAPACK::LAPACK)
+target_link_libraries(${compare_blas_name}  PRIVATE ${print_lib} ${math_lib} BLAS::BLAS LAPACK::LAPACK)
+target_link_libraries(${compare_solver_name}  PRIVATE ${print_lib} ${math_lib}  BLAS::BLAS LAPACK::LAPACK)
+
+add_subdirectory(source)
