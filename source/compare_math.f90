@@ -80,7 +80,7 @@ PROGRAM compare_tftri
 
   CALL SYSTEM_CLOCK(COUNT = start_clock)
   do i = 1, n_loops
-  CALL dgemm_transform(H_dgemm, F, T, WRK, M, N, LDT)  ! WRK is 2D here
+  CALL dgemm_transform(H_dgemm, F, T, M, N, LDT)  ! WRK is 2D here
   end do
   CALL SYSTEM_CLOCK(COUNT = end_clock)
   time_dgemm = REAL(end_clock - start_clock) / REAL(clock_rate)

@@ -39,7 +39,7 @@ SUBROUTINE dsym_transform(H, F, T, WRK, M, N, LDT)
    RETURN
 END SUBROUTINE dsym_transform
 
-SUBROUTINE dgemm_transform(H, F, T, WRK, M, N, LDT)
+SUBROUTINE dgemm_transform(H, F, T,M, N, LDT)
    USE omp_lib
    IMPLICIT NONE
 
@@ -48,7 +48,6 @@ SUBROUTINE dgemm_transform(H, F, T, WRK, M, N, LDT)
    DOUBLE PRECISION, DIMENSION(*), INTENT(OUT) :: H   ! Packed lower triangular output matrix
    DOUBLE PRECISION, DIMENSION(N), INTENT(IN) :: F  ! Symmetric matrix (lower triangular part)
    DOUBLE PRECISION, DIMENSION(LDT, M), INTENT(IN) :: T  ! Transform matrix
-   DOUBLE PRECISION, DIMENSION(N, M), INTENT(INOUT) :: WRK  ! Workspace array
    DOUBLE PRECISION, ALLOCATABLE :: full_F(:,:), G(:,:)
 
    ! Parameters
@@ -56,9 +55,7 @@ SUBROUTINE dgemm_transform(H, F, T, WRK, M, N, LDT)
    DOUBLE PRECISION, PARAMETER :: ONE = 1.0D+00
 
    ! Local variables
-   INTEGER :: I, J, IJ
    DOUBLE PRECISION, ALLOCATABLE :: FULL_H(:,:)  ! Temporary full symmetric matrix to hold H
-
    ! Allocate a full symmetric matrix to hold the intermediate result
    ALLOCATE(FULL_H(M, M))
    ALLOCATE(full_F(M, M))
