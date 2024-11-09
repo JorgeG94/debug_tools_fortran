@@ -1,11 +1,12 @@
 module output_module
+  use types_module
   use output_helpers 
   implicit none
   private
 
   ! Define verbosity type with encapsulated verbosity level
   type :: Logger
-    integer :: level = 4
+    integer(kind=int64) :: level = 4
   contains
     procedure :: set_verbosity
     procedure :: debug 
@@ -18,14 +19,14 @@ module output_module
   end type Logger
 
   ! Define verbosity levels as public constants
-  integer, parameter :: VERBOSITY_DEBUG = 6
-  integer, parameter :: VERBOSITY_VERBOSE = 5
-  integer, parameter :: VERBOSITY_STANDARD = 4
-  integer, parameter :: VERBOSITY_INFO = 3
-  integer, parameter :: VERBOSITY_MINIMAL = 2
-  integer, parameter :: VERBOSITY_WARNING = 1
-  integer, parameter :: VERBOSITY_ERROR = 0
-  integer, parameter :: asterisk_level = 15
+  integer(kind=int64), parameter :: VERBOSITY_DEBUG = 6
+  integer(kind=int64), parameter :: VERBOSITY_VERBOSE = 5
+  integer(kind=int64), parameter :: VERBOSITY_STANDARD = 4
+  integer(kind=int64), parameter :: VERBOSITY_INFO = 3
+  integer(kind=int64), parameter :: VERBOSITY_MINIMAL = 2
+  integer(kind=int64), parameter :: VERBOSITY_WARNING = 1
+  integer(kind=int64), parameter :: VERBOSITY_ERROR = 0
+  integer(kind=int64), parameter :: asterisk_level = 15
 
   public :: Logger
 

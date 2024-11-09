@@ -1,18 +1,22 @@
+module solver_provider 
+use types_module
+implicit none 
+contains
 SUBROUTINE sym_solve(A, X, IPVT, N, LDA, JOB, IERR)
    USE omp_lib
    IMPLICIT NONE
    external dlansy
    double precision dlansy
    DOUBLE PRECISION, INTENT(INOUT) :: A(LDA, N), X(N)
-   INTEGER, INTENT(OUT) :: IPVT(N)
-   INTEGER, INTENT(IN) :: N, LDA, JOB
+   INTEGER(kind=int64), INTENT(OUT) :: IPVT(N)
+   INTEGER(kind=int64), INTENT(IN) :: N, LDA, JOB
    double precision, dimension(:), allocatable :: work
    integer,dimension(:), allocatable ::iwork
    integer :: lwork
-   INTEGER :: IERR
+   INTEGER(kind=int64) :: IERR
    DOUBLE PRECISION, PARAMETER :: tol = 1.0d-14
    DOUBLE PRECISION :: rcond, anorm
-   INTEGER :: INFO
+   INTEGER(kind=int64) :: INFO
 
    IERR = 0
    INFO = 0
@@ -55,9 +59,9 @@ SUBROUTINE gen_solve(A, X, IPVT, N, LDA, JOB, IERR)
    USE omp_lib
    IMPLICIT NONE
    DOUBLE PRECISION, INTENT(INOUT) :: A(LDA, N), X(N)
-   INTEGER, INTENT(OUT) :: IPVT(N)
-   INTEGER, INTENT(IN) :: N, LDA, JOB
-   INTEGER :: INFO, ierr
+   INTEGER(kind=int64), INTENT(OUT) :: IPVT(N)
+   INTEGER(kind=int64), INTENT(IN) :: N, LDA, JOB
+   INTEGER(kind=int64) :: INFO, ierr
 
    INFO = 0
    call DGETRF(N, N, A, LDA, IPVT, INFO)
@@ -65,3 +69,4 @@ SUBROUTINE gen_solve(A, X, IPVT, N, LDA, JOB, IERR)
 
    RETURN
 END SUBROUTINE gen_solve
+end module solver_provider

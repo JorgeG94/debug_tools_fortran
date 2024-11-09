@@ -1,11 +1,12 @@
 module output_helpers
+  use types_module
   implicit none
 
 contains
 
   subroutine print_asterisk_row(n)
-    integer, intent(in) :: n
-    integer :: i
+    integer(kind=int64), intent(in) :: n
+    integer(kind=int64) :: i
     do i = 1, n
       write(*, '(A)', advance='no') '*'
     end do

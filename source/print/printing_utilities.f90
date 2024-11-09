@@ -13,6 +13,7 @@ contains
 end module message_printer
 
 module matrix_printer
+   use types_module
    use string_utilities
    implicit none
    !public :: print_array, print_array_with_bounds
@@ -38,7 +39,7 @@ contains
       double precision, intent(in) :: vec(:)
       character(len=*), intent(in), optional :: format_type
       character(len=20) :: format_selected
-      integer, intent(in) :: n_elements
+      integer(kind=int64), intent(in) :: n_elements
       ! Determine the format: default to "PLAIN" if not specified
       if (present(format_type)) then
          format_selected = trim(adjustl(format_type))
@@ -77,7 +78,7 @@ contains
    subroutine print_matrix_m_n(mat, n_cols, n_rows, format_type)
       implicit none
       real(8), intent(in) :: mat(:, :)  ! 2D array
-      integer, intent(in) :: n_cols, n_rows
+      integer(kind=int64), intent(in) :: n_cols, n_rows
       character(len=*), intent(in), optional :: format_type
       character(len=20) :: format_selected
       ! Determine the format: default to "PLAIN" if not specified
@@ -118,8 +119,8 @@ contains
    subroutine print_plain_vector(vec, n_elements)
       implicit none
       real(8), intent(in) :: vec(:)
-      integer, intent(in), optional :: n_elements
-      integer :: i, loop_bound
+      integer(kind=int64), intent(in), optional :: n_elements
+      integer(kind=int64) :: i, loop_bound
       if (present(n_elements)) then
          loop_bound = n_elements
       else
@@ -135,8 +136,8 @@ contains
    subroutine print_plain_matrix(mat, n_cols, n_rows)
       implicit none
       real(8), intent(in) :: mat(:, :)
-      integer, intent(in), optional :: n_cols, n_rows
-      integer :: i, j, loop_bound_i, loop_bound_j
+      integer(kind=int64), intent(in), optional :: n_cols, n_rows
+      integer(kind=int64) :: i, j, loop_bound_i, loop_bound_j
       if (present(n_cols) .and. present(n_rows)) then
          loop_bound_i = n_cols
          loop_bound_j = n_rows
@@ -161,9 +162,9 @@ contains
       implicit none
       real(8), intent(in) :: vec(:)
       character(len=*), intent(in) :: format_type
-      integer, intent(in), optional :: n_elements
+      integer(kind=int64), intent(in), optional :: n_elements
       character(len=1) :: open_bracket, close_bracket
-      integer :: i, loop_bound_i
+      integer(kind=int64) :: i, loop_bound_i
 
       if (present(n_elements)) then
          loop_bound_i = n_elements
@@ -201,8 +202,8 @@ contains
       real(8), intent(in) :: mat(:, :)
       character(len=*), intent(in) :: format_type
       character(len=1) :: open_bracket, close_bracket
-      integer, intent(in), optional :: n_cols, n_rows
-      integer :: i, j, loop_bound_i, loop_bound_j
+      integer(kind=int64), intent(in), optional :: n_cols, n_rows
+      integer(kind=int64) :: i, j, loop_bound_i, loop_bound_j
       if (present(n_cols) .and. present(n_rows)) then
          loop_bound_i = n_cols
          loop_bound_j = n_rows

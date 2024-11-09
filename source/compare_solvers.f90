@@ -1,17 +1,19 @@
 PROGRAM compare_solvers
   USE omp_lib
+  use types_module
+  use solver_provider
+  use math_utilities
   USE matrix_printer  ! Assuming you have a module to print matrices, similar to your original code.
   USE message_printer  ! Assuming you have a module to print messages.
   IMPLICIT NONE
 
-  INTEGER, PARAMETER :: dp = KIND(1.0d0)
-  INTEGER :: M, N, LDA, n_loops, INFO, i
+  INTEGER(kind=int64) :: M, N, LDA, n_loops, INFO, i
   CHARACTER(LEN=10) :: arg1, arg2, arg3
-  INTEGER :: start_clock, end_clock, clock_rate
+  INTEGER(kind=int64) :: start_clock, end_clock, clock_rate
   DOUBLE PRECISION :: time_sym_solve, time_gen_solve
   DOUBLE PRECISION, ALLOCATABLE :: A_sym(:,:), A_gen(:,:), X_sym(:), X_gen(:)
   DOUBLE PRECISION, ALLOCATABLE :: A_sym_0(:,:), X_sym_0(:)
-  INTEGER, ALLOCATABLE :: IPVT_sym(:), IPVT_gen(:)
+  INTEGER(kind=int64), ALLOCATABLE :: IPVT_sym(:), IPVT_gen(:)
 
   ! Get command line arguments
   CALL get_command_argument(1, arg1)

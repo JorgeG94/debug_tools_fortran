@@ -1,9 +1,11 @@
-
+module math_utilities
+  implicit none 
+  contains 
 SUBROUTINE compress_lower_triangular(full_matrix, packed_matrix, M)
   IMPLICIT NONE
 
   ! Input/Output arguments
-  INTEGER, INTENT(IN) :: M                             ! Dimension of the matrix (M x M)
+  INTEGER(kind=8), intent(in) :: M
   DOUBLE PRECISION, DIMENSION(M, M), INTENT(IN) :: full_matrix  ! Full symmetric matrix
   DOUBLE PRECISION, DIMENSION((M * (M + 1)) / 2), INTENT(OUT) :: packed_matrix  ! Packed output array
 
@@ -25,7 +27,8 @@ END SUBROUTINE compress_lower_triangular
 
 SUBROUTINE decompress_lower_triangular(packed_matrix, full_matrix, M)
   IMPLICIT NONE
-  INTEGER :: M, I, J, IJ
+  INTEGER(kind=8), intent(in) :: M 
+  integer :: I, J, IJ
   DOUBLE PRECISION, DIMENSION((M * (M + 1)) / 2) :: packed_matrix
   DOUBLE PRECISION, DIMENSION(M, M) :: full_matrix
 
@@ -58,8 +61,6 @@ SUBROUTINE initialize_symmetric_matrix(A, N)
     END DO
   END DO
 
-  write(*,*) A(1,1)
 
 END SUBROUTINE initialize_symmetric_matrix
-
-
+end module math_utilities
