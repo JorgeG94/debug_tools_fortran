@@ -61,11 +61,15 @@ SUBROUTINE gen_solve(A, X, IPVT, N, LDA, JOB, IERR)
    DOUBLE PRECISION, INTENT(INOUT) :: A(LDA, N), X(N)
    INTEGER(kind=int64), INTENT(OUT) :: IPVT(N)
    INTEGER(kind=int64), INTENT(IN) :: N, LDA, JOB
+   character(len=1) :: OP
    INTEGER(kind=int64) :: INFO, ierr
-
+   OP = 'N'
    INFO = 0
+   if(JOB.ne.0) then
+    OP = 'T'
+   endif
    call DGETRF(N, N, A, LDA, IPVT, INFO)
-   call DGETRS('N', N, 1, A, LDA, IPVT, X, LDA, INFO)
+   call DGETRS(OP, N, 1, A, LDA, IPVT, X, LDA, INFO)
 
    RETURN
 END SUBROUTINE gen_solve
