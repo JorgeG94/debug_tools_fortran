@@ -1,6 +1,7 @@
 module blas_provider 
   use types_module
   use math_utilities
+  use blas_interfaces
   implicit none 
 
   contains
@@ -11,7 +12,6 @@ SUBROUTINE dsym_transform(H, F, T, WRK, M, N, LDT)
 
    ! Input/output arguments
    integer(kind=int64), intent(in) :: M, N, LDT
-   external :: DSYMM, DGEMM
    DOUBLE PRECISION, DIMENSION(*), INTENT(OUT) :: H   ! Packed lower triangular output matrix
    DOUBLE PRECISION, DIMENSION(N), INTENT(IN) :: F  ! Symmetric matrix (lower triangular part)
    DOUBLE PRECISION, DIMENSION(LDT, M), INTENT(IN) :: T  ! Transform matrix
@@ -30,11 +30,11 @@ SUBROUTINE dsym_transform(H, F, T, WRK, M, N, LDT)
    call decompress_lower_triangular(F,full_F,M)
 
    ! Step 1: Compute G = F * T using DSYMM
-   CALL DSYMM('L', 'L', N, M, ONE, full_F, N, T, LDT, ZERO, WRK, N)
+   CALL SYMM('L', 'L', N, M, ONE, full_F, N, T, LDT, ZERO, WRK, N)
 
 
    ! Step 2: Compute FULL_H = T^T * G using DGEMM
-   CALL DGEMM('T', 'N', M, M, N, ONE, T, LDT, WRK, N, ZERO, FULL_H, M)
+   CALL GEMM('T', 'N', M, M, N, ONE, T, LDT, WRK, N, ZERO, FULL_H, M)
 
    ! Step 3: Compress FULL_H into packed lower triangular format in H
    CALL compress_lower_triangular(FULL_H, H, M)
@@ -69,10 +69,10 @@ SUBROUTINE dgemm_transform(H, F, T,M, N, LDT)
    call decompress_lower_triangular(F,full_F,M)
 
    ! Step 1: Compute G = F * T using DSYMM
-   CALL DGEMM('N', 'N', M, N, M, 1.0D0, full_F, M, T, LDT, 0.0D0, G, M)
+   CALL GEMM('N', 'N', M, N, M, 1.0D0, full_F, M, T, LDT, 0.0D0, G, M)
 
    ! Step 2: Compute FULL_H = T^T * G using DGEMM
-   CALL DGEMM('T', 'N', M, M, N, 1.0D0, T, LDT, G, M, 0.0D0, full_H, M)
+   CALL GEMM('T', 'N', M, M, N, 1.0D0, T, LDT, G, M, 0.0D0, full_H, M)
 
    ! Step 3: Compress FULL_H into packed lower triangular format in H
    CALL compress_lower_triangular(FULL_H, H, M)
@@ -89,10 +89,10 @@ END SUBROUTINE dgemm_transform
 SUBROUTINE by_column_transform(H,F,T,WRK,M,N,LDT)
    use omp_lib
    integer(kind=int64), intent(in) :: M, N, LDT
-   double precision :: H(*),F(*),T(LDT,M),WRK(N)
-   double precision, PARAMETER :: ZERO=0.0D+00
-   double precision, PARAMETER :: ONE=1.0D+00
-   double precision, PARAMETER :: SMALL=1.0D-11
+   real(kind=dp) :: H(M*(M+1)/2),F(N*(N+1)/2),T(LDT,M),WRK(N)
+   real(kind=dp), PARAMETER :: ZERO=0.0D+00
+   real(kind=dp), PARAMETER :: ONE=1.0D+00
+   real(kind=dp), PARAMETER :: SMALL=1.0D-11
    integer(kind=int64) :: M2
    integer(kind=int64) i,j, ij
    M2 = (M*M+M)/2
@@ -101,8 +101,8 @@ SUBROUTINE by_column_transform(H,F,T,WRK,M,N,LDT)
 !        THEN THE -DGEMV- GENERATES AN ENTIRE ROW -J- OF -H-.
    DO J = 1,M
       IJ = (J*J-J)/2
-      CALL DSPMV('U',N,ONE,F,T(1,J),1,ZERO,WRK,1)
-      CALL DGEMV('T',N,J,ONE,T,LDT,WRK,1,ZERO,H(IJ+1),1)
+      CALL dspmv('U',N,ONE,F,T(1,J),1,ZERO,WRK,1)
+      CALL dGEMV('T',N,J,ONE,T,LDT,WRK,1,ZERO,H(IJ+1),1)
       DO I=1,J
          IF (ABS(H(IJ+I)).LT.SMALL) H(IJ+I)=ZERO
       ENDDO
