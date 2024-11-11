@@ -2,13 +2,16 @@ module blas_provider
   use types_module
   use math_utilities
   implicit none 
+
   contains
+
 SUBROUTINE dsym_transform(H, F, T, WRK, M, N, LDT)
    USE omp_lib
    IMPLICIT NONE
 
    ! Input/output arguments
    integer(kind=int64), intent(in) :: M, N, LDT
+   external :: DSYMM, DGEMM
    DOUBLE PRECISION, DIMENSION(*), INTENT(OUT) :: H   ! Packed lower triangular output matrix
    DOUBLE PRECISION, DIMENSION(N), INTENT(IN) :: F  ! Symmetric matrix (lower triangular part)
    DOUBLE PRECISION, DIMENSION(LDT, M), INTENT(IN) :: T  ! Transform matrix
@@ -85,12 +88,12 @@ END SUBROUTINE dgemm_transform
 
 SUBROUTINE by_column_transform(H,F,T,WRK,M,N,LDT)
    use omp_lib
+   integer(kind=int64), intent(in) :: M, N, LDT
    double precision :: H(*),F(*),T(LDT,M),WRK(N)
    double precision, PARAMETER :: ZERO=0.0D+00
    double precision, PARAMETER :: ONE=1.0D+00
    double precision, PARAMETER :: SMALL=1.0D-11
    integer(kind=int64) :: M2
-   integer(kind=int64) :: M, N, LDT
    integer(kind=int64) i,j, ij
    M2 = (M*M+M)/2
 !        THE COMPUTATION HERE IS H = T-DAGGER * (F * T),

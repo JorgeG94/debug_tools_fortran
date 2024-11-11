@@ -7,7 +7,6 @@ PROGRAM compare_tftri
 !  INTEGER, PARAMETER :: M = 500, N = 500, LDT = M
    integer(kind=int64) :: m, n, ldt, n_loops
    CHARACTER(LEN=10) :: arg1, arg2, arg3
-   CHARACTER(LEN=50) :: errmsg
    !integer :: n_loops = 100
    INTEGER(kind=int64) :: start_clock, end_clock, clock_rate
    DOUBLE PRECISION :: time_original, time_optimized, time_dgemm
