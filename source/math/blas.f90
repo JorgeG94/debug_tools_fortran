@@ -19,7 +19,6 @@ SUBROUTINE dsym_transform(H, F, T, WRK, M, N, LDT)
    DOUBLE PRECISION, PARAMETER :: ONE = 1.0D+00
 
    ! Local variables
-   INTEGER(kind=int64) :: I, J, IJ
    DOUBLE PRECISION, ALLOCATABLE :: FULL_H(:,:), full_f(:,:)
 
    ! Allocate a full symmetric matrix to hold the intermediate result
@@ -56,8 +55,6 @@ SUBROUTINE dgemm_transform(H, F, T,M, N, LDT)
    DOUBLE PRECISION, ALLOCATABLE :: full_F(:,:), G(:,:)
 
    ! Parameters
-   DOUBLE PRECISION, PARAMETER :: ZERO = 0.0D+00
-   DOUBLE PRECISION, PARAMETER :: ONE = 1.0D+00
 
    ! Local variables
    DOUBLE PRECISION, ALLOCATABLE :: FULL_H(:,:)  ! Temporary full symmetric matrix to hold H

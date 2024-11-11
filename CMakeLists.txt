@@ -17,6 +17,8 @@ if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "Intel")
     add_compile_options(-integer-size 64)
 endif()
+#-Wimplicit-interface -Wimplicit-procedure
+add_compile_options(-g -fbacktrace -Wall -Wextra -Wunderflow -Wconversion -Wline-truncation -Wcharacter-truncation -Warray-temporaries -fcheck=all -finit-real=snan -finit-integer=-2147483648 -finit-logical=true -fimplicit-none)
 
 # Create the static library
 set(print_lib printing_library)
