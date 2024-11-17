@@ -89,12 +89,12 @@ END SUBROUTINE dgemm_transform
 SUBROUTINE by_column_transform(H,F,T,WRK,M,N,LDT)
    use omp_lib
    integer(kind=int64), intent(in) :: M, N, LDT
-   real(kind=dp) :: H(M*(M+1)/2),F(N*(N+1)/2),T(LDT,M),WRK(N)
+   real(kind=dp) :: H(*),F(*),T(LDT,M),WRK(N)
    real(kind=dp), PARAMETER :: ZERO=0.0D+00
    real(kind=dp), PARAMETER :: ONE=1.0D+00
    real(kind=dp), PARAMETER :: SMALL=1.0D-11
    integer(kind=int64) :: M2
-   integer(kind=int64) i,j, ij
+   integer(kind=int64) :: i,j, ij
    M2 = (M*M+M)/2
 !        THE COMPUTATION HERE IS H = T-DAGGER * (F * T),
 !        WITH THE -DSPMV- FIRST PRODUCING ONE COLUMN OF F*T,
