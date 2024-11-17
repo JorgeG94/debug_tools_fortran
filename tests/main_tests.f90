@@ -15,12 +15,10 @@ program tester
 
   stat = 0
   allocate (testsuites(ntest_suites))
-  testsuites = [ &
-               new_testsuite("suite1", collect_suite1), &
-               new_testsuite("suite2", collect_string_utilities_tests), &
-               new_testsuite("suite3", collect_integrator_tests), &
-              new_testsuite("suite4", collect_math_utilities_test) &
-               ]
+  testsuites(1) = new_testsuite("suite1", collect_suite1)
+  testsuites(2) = new_testsuite("suite2", collect_string_utilities_tests)
+  testsuites(3) = new_testsuite("suite3", collect_integrator_tests)
+  testsuites(4) = new_testsuite("suite4", collect_math_utilities_test)
 
   call get_argument(1, suite_name)
   call get_argument(2, test_name)
