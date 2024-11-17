@@ -13,7 +13,7 @@ project(
   printing
   VERSION 0.0.0
   LANGUAGES Fortran)
-
+set(project_name printer)
 enable_language(Fortran)
 enable_testing()
 include(ExternalProject)
@@ -27,15 +27,15 @@ if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "Intel")
     add_compile_options(-integer-size 64)
 endif()
-set(test-drive_version 0.4.0)
+set(test-drive_version 0.5.0)
 ExternalProject_Add(
   test-drive
   URL https://github.com/fortran-lang/test-drive/archive/refs/tags/v${test-drive_version}.tar.gz
   PREFIX ${PROJECT_SOURCE_DIR}/external/test-drive
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/lib/test-drive -DCMAKE_Fortran_FLAGS="-fdefault-integer-8")
 #add_compile_options(-Wimplicit-interface -Wimplicit-procedure)
-#add_compile_options(-pedantic -Wampersand -Wsurprising -std=f2018)
-#add_compile_options(-g -fbacktrace -Wall -Wextra -Wunderflow -Wconversion -Wline-truncation -Wcharacter-truncation -Warray-temporaries -fcheck=all -finit-real=snan -finit-integer=-2147483648 -finit-logical=true -fimplicit-none)
+add_compile_options(-pedantic -Wampersand -Wsurprising -std=f2018)
+add_compile_options(-g -fbacktrace -Wall -Wextra -Wunderflow -Wconversion -Wline-truncation -Wcharacter-truncation -Warray-temporaries -fcheck=all -finit-real=snan -finit-integer=-2147483648 -finit-logical=true -fimplicit-none)
 
 # Create the static library
 set(print_lib printing_library)

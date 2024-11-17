@@ -18,9 +18,9 @@ contains
 
    function concatenate_strings(str1, str2) result(concatenated)
       character(len=*), intent(in) :: str1, str2
-      character(len=len(trim(str1)) + len(trim(str2))) :: concatenated
+      character(len=len(str1) + len(str2)) :: concatenated
       concatenated = str1 // str2
-      !concatenated = trim(concatenated)
+      concatenated = trim(concatenated)
    end function concatenate_strings
 
    ! Overloaded to_string function for integer

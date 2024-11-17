@@ -20,5 +20,6 @@ target_link_libraries(
 )
 
 foreach(t IN LISTS tests)
+  message(STATUS "${project_name}/${t} ${project_name}-tester ${t}")
   add_test("${project_name}/${t}" "${project_name}-tester" "${t}")
 endforeach()
