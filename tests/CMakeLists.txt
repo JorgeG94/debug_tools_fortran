@@ -1,5 +1,5 @@
 # Unit testing
-set(tests "suite1" "suite2" "suite3")
+set(tests "suite1" "suite2" "suite3" "suite4")
 set(test-srcs "main_tests.f90")
 foreach(t IN LISTS tests)
   string(MAKE_C_IDENTIFIER ${t} t)

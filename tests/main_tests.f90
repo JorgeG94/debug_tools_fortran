@@ -5,9 +5,10 @@ program tester
   use test_suite1, only: collect_suite1
   use test_string_utilities, only: collect_string_utilities_tests
   use test_integrator_suite, only: collect_integrator_tests
+  use test_math_utilities, only: collect_math_utilities_test
   implicit none
   integer :: stat, is
-  integer, parameter :: ntest_suites = 3
+  integer, parameter :: ntest_suites = 4
   character(len=:), allocatable :: suite_name, test_name
   type(testsuite_type), allocatable :: testsuites(:)
   character(len=*), parameter :: fmt = '("#", *(1x, a))'
@@ -17,7 +18,8 @@ program tester
   testsuites = [ &
                new_testsuite("suite1", collect_suite1), &
                new_testsuite("suite2", collect_string_utilities_tests), &
-               new_testsuite("suite3", collect_integrator_tests) &
+               new_testsuite("suite3", collect_integrator_tests), &
+              new_testsuite("suite4", collect_math_utilities_test) &
                ]
 
   call get_argument(1, suite_name)
