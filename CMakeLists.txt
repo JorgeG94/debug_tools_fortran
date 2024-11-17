@@ -63,7 +63,7 @@ include_directories(
 )
 add_subdirectory(source)
 add_subdirectory(tests)
-add_executable(${debug_exec_name} ${SOURCE_DIR}/main.f90)
+add_executable(${debug_exec_name} ${PROJECT_SOURCE_DIR}/app/main.f90)
 # Set the module directory for the executable
 target_include_directories(${debug_exec_name} PRIVATE "${CMAKE_BINARY_DIR}/modules")
 

@@ -40,7 +40,7 @@ CONTAINS
 
     REAL(KIND=default_real), INTENT(IN) :: a, b, tol, fa, fc, fb
     REAL(KIND=default_real) :: integral
-    REAL(KIND=default_real) :: c, h, s1, s2, s3, left, right, whole, error
+    REAL(KIND=default_real) :: c, h, s1, s2, left, right, whole, error
 
     c = (a + b) / 2.0_default_real
     h = (b - a) / 6.0_default_real
