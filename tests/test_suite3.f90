@@ -83,4 +83,3 @@ contains
   end function constant_function
 
 end module test_integrator_suite
-

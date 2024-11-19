@@ -1,6 +1,6 @@
 module math_utilities
-  implicit none 
-  contains 
+  implicit none
+  contains
 SUBROUTINE compress_lower_triangular(full_matrix, packed_matrix, M)
   IMPLICIT NONE
 
@@ -27,7 +27,7 @@ END SUBROUTINE compress_lower_triangular
 
 SUBROUTINE decompress_lower_triangular(packed_matrix, full_matrix, M)
   IMPLICIT NONE
-  INTEGER(kind=8), intent(in) :: M 
+  INTEGER(kind=8), intent(in) :: M
   integer :: I, J, IJ
   DOUBLE PRECISION, DIMENSION((M * (M + 1)) / 2) :: packed_matrix
   DOUBLE PRECISION, DIMENSION(M, M) :: full_matrix

@@ -60,4 +60,3 @@ CONTAINS
   END FUNCTION adaptive_simpson
 
 END MODULE integrator
-

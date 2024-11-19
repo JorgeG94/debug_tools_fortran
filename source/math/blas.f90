@@ -1,8 +1,8 @@
-module blas_provider 
+module blas_provider
   use types_module
   use math_utilities
   use blas_interfaces
-  implicit none 
+  implicit none
 
   contains
 
