@@ -6,10 +6,10 @@ double precision :: a_double = 2.0
 type(Logger) :: logging
 
 
-call logging%set_verbosity("DEBUG")
+call logging%set_verbosity("MINIMAL")
 
 
-call logging%verbose("VERBOSE " + to_string(a_double) + " here")
+call logging%verbose("VERBOSE " // to_string(a_double) // " here")
 call logging%debug("DEBUG")
 call logging%standard("standard")
 call logging%info("info")
