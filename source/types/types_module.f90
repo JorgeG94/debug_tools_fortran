@@ -13,20 +13,20 @@ MODULE types_module
   INTEGER, PARAMETER :: default_real = dp
   INTEGER, PARAMETER :: default_complex = dp
 
-  TYPE, PUBLIC :: RealType
+  TYPE, PUBLIC :: DPType
      REAL(KIND=default_real) :: value
-  END TYPE RealType
+  END TYPE DPType
 
-  TYPE, PUBLIC :: IntType
+  TYPE, PUBLIC :: Int8Type
      INTEGER(KIND=default_int) :: value
-  END TYPE IntType
+  END TYPE Int8Type
 
   TYPE, PUBLIC :: LogicalType
      LOGICAL :: value
   END TYPE LogicalType
 
-  TYPE, PUBLIC :: ComplexType
+  TYPE, PUBLIC :: ComplexDPType
      COMPLEX(KIND=default_complex) :: value
-  END TYPE ComplexType
+  END TYPE ComplexDPType
 
 END MODULE types_module
