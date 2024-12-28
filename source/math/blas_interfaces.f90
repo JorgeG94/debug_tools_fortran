@@ -1,8 +1,8 @@
 module blas_interfaces
   use types_module
-  implicit none 
+  implicit none
 
-  interface gemm 
+  interface gemm
   pure subroutine dgemm(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
     import :: dp, int64
     integer(kind=int64), intent(in) :: lda
@@ -18,10 +18,10 @@ module blas_interfaces
     integer(kind=int64), intent(in) :: m
     integer(kind=int64), intent(in) :: n
     integer(kind=int64), intent(in) :: k
-end subroutine 
+end subroutine
 end interface gemm
 
-interface symm 
+interface symm
 pure subroutine dsymm(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
     import :: dp, int64
     integer(kind=int64), intent(in) :: lda

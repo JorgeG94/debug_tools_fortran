@@ -52,7 +52,7 @@ PROGRAM compare_solvers
   !call initialize_symmetric_matrix(X_sym,N)
   CALL random_number(X_sym)
 
-  A_gen = A_sym 
+  A_gen = A_sym
   X_gen = X_sym
   A_sym_0 = A_sym
   X_sym_0 = X_sym
@@ -106,4 +106,3 @@ PROGRAM compare_solvers
   DEALLOCATE(A_sym, A_gen, X_sym, X_gen, IPVT_sym, IPVT_gen)
 
 END PROGRAM compare_solvers
-

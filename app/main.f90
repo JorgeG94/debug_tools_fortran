@@ -1,7 +1,7 @@
 program testing
 use debugging_tools
 use output_module
-implicit none 
+implicit none
 double precision :: a_double = 2.0
 type(Logger) :: logging
 

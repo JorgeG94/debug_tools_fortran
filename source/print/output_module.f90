@@ -1,6 +1,6 @@
 module output_module
   use types_module
-  use output_helpers 
+  use output_helpers
   implicit none
   private
 
@@ -9,12 +9,12 @@ module output_module
     integer(kind=int64) :: level = 4
   contains
     procedure :: set_verbosity
-    procedure :: debug 
+    procedure :: debug
     procedure :: verbose
     procedure :: standard
     procedure :: info
     procedure :: minimal
-    procedure :: warning 
+    procedure :: warning
     procedure :: fatal_error
   end type Logger
 
@@ -99,25 +99,24 @@ contains
   end subroutine minimal
 
   subroutine warning(this,msg)
-    class(Logger), intent(in) :: this 
+    class(Logger), intent(in) :: this
     character(len=*), intent(in) :: msg
-    if(this%level >= VERBOSITY_WARNING) then 
+    if(this%level >= VERBOSITY_WARNING) then
       call print_asterisk_row(asterisk_level)
-      print *, "[WARNING]: ", trim(msg) 
+      print *, "[WARNING]: ", trim(msg)
       call print_asterisk_row(asterisk_level)
     endif
-  end subroutine warning 
+  end subroutine warning
 
   subroutine fatal_error(this, msg)
-    class(Logger), intent(in) :: this 
+    class(Logger), intent(in) :: this
     character(len=*),intent(in) :: msg
-    if(this%level >= VERBOSITY_ERROR) then 
+    if(this%level >= VERBOSITY_ERROR) then
       call print_asterisk_row(asterisk_level)
-      print *, "[FATAL_ERROR]: ", trim(msg) 
+      print *, "[FATAL_ERROR]: ", trim(msg)
       call print_asterisk_row(asterisk_level)
     endif
     stop
   end subroutine fatal_error
 
 end module output_module
-

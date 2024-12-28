@@ -1,6 +1,6 @@
-module solver_provider 
+module solver_provider
 use types_module
-implicit none 
+implicit none
 contains
 SUBROUTINE sym_solve(A, X, IPVT, N, LDA, JOB, IERR)
    USE omp_lib
@@ -20,7 +20,7 @@ SUBROUTINE sym_solve(A, X, IPVT, N, LDA, JOB, IERR)
 
    IERR = 0
    INFO = 0
-   if(JOB.ne.0) then 
+   if(JOB.ne.0) then
     call gen_solve(A,X,IPVT,N,LDA,JOB,IERR)
    endif
 

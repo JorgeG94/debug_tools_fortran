@@ -1,1 +1,1 @@
-target_sources(${math_lib} PRIVATE integration.f90 )  
+target_sources(${math_lib} PRIVATE integration.f90)

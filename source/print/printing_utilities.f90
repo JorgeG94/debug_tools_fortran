@@ -247,4 +247,3 @@ contains
    end subroutine print_matrix_in_format
 
 end module matrix_printer
-

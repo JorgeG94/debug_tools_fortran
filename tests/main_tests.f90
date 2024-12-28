@@ -54,5 +54,5 @@ program tester
     write(error_unit, '(i0, 1x, a)') stat, "test(s) failed!"
     error stop 1
   end if
-  
+
 end program tester

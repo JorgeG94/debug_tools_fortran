@@ -7,17 +7,14 @@ foreach(t IN LISTS tests)
 endforeach()
 
 add_executable("${project_name}-tester" "${test-srcs}")
-set_target_properties("${project_name}-tester" PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules"
-)
+set_target_properties(
+  "${project_name}-tester"
+  PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+             Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules")
 target_link_libraries(
   "${project_name}-tester"
-  PRIVATE
-    "${math_lib}"
-    "${print_lib}"
-    ${PROJECT_SOURCE_DIR}/lib/test-drive/lib/libtest-drive.a
-)
+  PRIVATE "${math_lib}" "${print_lib}"
+          ${PROJECT_SOURCE_DIR}/lib/test-drive/lib/libtest-drive.a)
 
 foreach(t IN LISTS tests)
   message(STATUS "${project_name}/${t} ${project_name}-tester ${t}")

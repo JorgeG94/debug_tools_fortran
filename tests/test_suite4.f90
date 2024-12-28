@@ -9,9 +9,9 @@ module test_math_utilities
 
   public :: collect_math_utilities_test
   real(dp), parameter :: tol = 1.0d-14
-  
 
-  contains 
+
+  contains
 
   subroutine collect_math_utilities_test(testsuite)
     type(unittest_type), allocatable, intent(out) :: testsuite(:)

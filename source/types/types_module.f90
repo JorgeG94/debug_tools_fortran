@@ -2,27 +2,31 @@ MODULE types_module
   IMPLICIT NONE
 
   ! Define kinds for different data types
-  INTEGER, PARAMETER :: int64 = SELECTED_INT_KIND(18)          ! 64-bit integer
-  INTEGER, PARAMETER :: int32 = SELECTED_INT_KIND(9)           ! 32-bit integer
-  INTEGER, PARAMETER :: sp = SELECTED_REAL_KIND(6, 37)         ! Single precision real (about 6 decimal places)
-  INTEGER, PARAMETER :: dp = SELECTED_REAL_KIND(15, 307)       ! Double precision real (about 15 decimal places)
-  INTEGER, PARAMETER :: qp = SELECTED_REAL_KIND(33, 4931)      ! Quad precision real (about 33 decimal places)
+  INTEGER, PARAMETER :: int64 = SELECTED_INT_KIND(18)
+  INTEGER, PARAMETER :: int32 = SELECTED_INT_KIND(9)
+  INTEGER, PARAMETER :: sp = SELECTED_REAL_KIND(6, 37)
+  INTEGER, PARAMETER :: dp = SELECTED_REAL_KIND(15, 307)
+  INTEGER, PARAMETER :: qp = SELECTED_REAL_KIND(33, 4931)
 
   ! Define default types
-  INTEGER, PARAMETER :: default_int = int64                    ! Default integer type
-  INTEGER, PARAMETER :: default_real = dp                      ! Default real type
+  INTEGER, PARAMETER :: default_int = int64
+  INTEGER, PARAMETER :: default_real = dp
+  INTEGER, PARAMETER :: default_complex = dp
 
-  ! Define type aliases for convenience
-  TYPE, PUBLIC :: RealType
+  TYPE, PUBLIC :: DPType
      REAL(KIND=default_real) :: value
-  END TYPE RealType
+  END TYPE DPType
 
-  TYPE, PUBLIC :: IntType
+  TYPE, PUBLIC :: Int8Type
      INTEGER(KIND=default_int) :: value
-  END TYPE IntType
+  END TYPE Int8Type
 
   TYPE, PUBLIC :: LogicalType
      LOGICAL :: value
   END TYPE LogicalType
+
+  TYPE, PUBLIC :: ComplexDPType
+     COMPLEX(KIND=default_complex) :: value
+  END TYPE ComplexDPType
 
 END MODULE types_module
