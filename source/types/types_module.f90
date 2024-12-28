@@ -1,4 +1,4 @@
-MODULE types_module
+MODULE pic_types
   IMPLICIT NONE
 
   ! Define kinds for different data types
@@ -29,4 +29,4 @@ MODULE types_module
      COMPLEX(KIND=default_complex) :: value
   END TYPE ComplexDPType
 
-END MODULE types_module
+END MODULE pic_types

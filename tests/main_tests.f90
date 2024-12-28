@@ -3,9 +3,9 @@ program tester
     use testdrive, only : run_testsuite, new_testsuite, testsuite_type, &
     & select_suite, run_selected, get_argument
   use test_suite1, only: collect_suite1
-  use test_string_utilities, only: collect_string_utilities_tests
+  use test_pic_string_utils, only: collect_pic_string_utils_tests
   use test_integrator_suite, only: collect_integrator_tests
-  use test_math_utilities, only: collect_math_utilities_test
+  use test_pic_math_utils, only: collect_pic_math_utils_test
   implicit none
   integer :: stat, is
   integer, parameter :: ntest_suites = 4
@@ -16,9 +16,9 @@ program tester
   stat = 0
   allocate (testsuites(ntest_suites))
   testsuites(1) = new_testsuite("suite1", collect_suite1)
-  testsuites(2) = new_testsuite("suite2", collect_string_utilities_tests)
+  testsuites(2) = new_testsuite("suite2", collect_pic_string_utils_tests)
   testsuites(3) = new_testsuite("suite3", collect_integrator_tests)
-  testsuites(4) = new_testsuite("suite4", collect_math_utilities_test)
+  testsuites(4) = new_testsuite("suite4", collect_pic_math_utils_test)
 
   call get_argument(1, suite_name)
   call get_argument(2, test_name)

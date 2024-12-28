@@ -1,5 +1,5 @@
-module message_printer
-   use string_utilities
+module pic_message_printer
+   use pic_string_utils
    implicit none
    public :: print_message
 contains
@@ -10,11 +10,11 @@ contains
       print *, trim(message)
    end subroutine print_message
 
-end module message_printer
+end module pic_message_printer
 
-module matrix_printer
-   use types_module
-   use string_utilities
+module pic_matrix_printer
+   use pic_types
+   use pic_string_utils
    implicit none
    !public :: print_array, print_array_with_bounds
    !private  ! Make all procedures private by default
@@ -246,4 +246,4 @@ contains
       print *, close_bracket
    end subroutine print_matrix_in_format
 
-end module matrix_printer
+end module pic_matrix_printer

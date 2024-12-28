@@ -1,10 +1,10 @@
 PROGRAM compare_solvers
   USE omp_lib
-  use types_module
-  use solver_provider
-  use math_utilities
-  USE matrix_printer  ! Assuming you have a module to print matrices, similar to your original code.
-  USE message_printer  ! Assuming you have a module to print messages.
+  use pic_types
+  use pic_solver_provider
+  use pic_math_utils
+  USE pic_matrix_printer  ! Assuming you have a module to print matrices, similar to your original code.
+  USE pic_message_printer  ! Assuming you have a module to print messages.
   IMPLICIT NONE
 
   INTEGER(kind=int64) :: M, N, LDA, n_loops, INFO, i

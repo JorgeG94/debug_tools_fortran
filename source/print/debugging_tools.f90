@@ -1,7 +1,7 @@
 module debugging_tools
-   use message_printer
-   use matrix_printer
-   use string_utilities
+   use pic_message_printer
+   use pic_matrix_printer
+   use pic_string_utils
    implicit none
 
 contains

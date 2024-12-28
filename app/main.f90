@@ -1,6 +1,6 @@
 program testing
 use debugging_tools
-use output_module
+use pic_output
 implicit none
 double precision :: a_double = 2.0
 type(Logger) :: logging

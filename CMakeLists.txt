@@ -10,10 +10,10 @@ cmake_policy(SET CMP0048 NEW)
 
 # Project name and settings
 project(
-  printing
+  pic
   VERSION 0.0.0
   LANGUAGES Fortran)
-set(project_name printer)
+set(project_name pic)
 enable_language(Fortran)
 enable_testing()
 include(ExternalProject)
@@ -55,7 +55,7 @@ add_compile_options(
 # Create the static library
 set(print_lib printing_library)
 set(math_lib math_library)
-set(debug_exec_name debug)
+set(debug_exec_name ${project_name})
 
 add_library(${print_lib} STATIC)
 add_library(${math_lib} STATIC)

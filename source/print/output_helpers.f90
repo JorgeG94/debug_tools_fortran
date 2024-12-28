@@ -1,5 +1,5 @@
-module output_helpers
-  use types_module
+module pic_output_helpers
+  use pic_types
   implicit none
 
 contains
@@ -14,4 +14,4 @@ contains
   end subroutine print_asterisk_row
 
 
-end module output_helpers
+end module pic_output_helpers

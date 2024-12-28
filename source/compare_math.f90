@@ -1,7 +1,7 @@
 PROGRAM compare_tftri
-   use matrix_printer
-   use blas_provider
-   use message_printer
+   use pic_matrix_printer
+   use pic_blas_provider
+   use pic_message_printer
    IMPLICIT NONE
 
 !  INTEGER, PARAMETER :: M = 500, N = 500, LDT = M

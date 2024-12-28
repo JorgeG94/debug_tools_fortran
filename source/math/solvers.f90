@@ -1,5 +1,5 @@
-module solver_provider
-use types_module
+module pic_solver_provider
+use pic_types
 implicit none
 contains
 SUBROUTINE sym_solve(A, X, IPVT, N, LDA, JOB, IERR)
@@ -76,4 +76,4 @@ SUBROUTINE gen_solve(A, X, IPVT, N, LDA, JOB, IERR)
 
    RETURN
 END SUBROUTINE gen_solve
-end module solver_provider
+end module pic_solver_provider
