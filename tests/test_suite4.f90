@@ -1,19 +1,19 @@
-module test_math_utilities
+module test_pic_math_utils
   use testdrive, only: new_unittest, unittest_type, error_type, check, test_failed
   use, intrinsic :: iso_fortran_env, only: error_unit
-  use solver_provider
-  use math_utilities
-  use types_module
+  use pic_solver_provider
+  use pic_math_utils
+  use pic_types
   implicit none
   private
 
-  public :: collect_math_utilities_test
+  public :: collect_pic_math_utils_test
   real(dp), parameter :: tol = 1.0d-14
 
 
   contains
 
-  subroutine collect_math_utilities_test(testsuite)
+  subroutine collect_pic_math_utils_test(testsuite)
     type(unittest_type), allocatable, intent(out) :: testsuite(:)
     integer, parameter :: ntests = 3
 
@@ -22,7 +22,7 @@ module test_math_utilities
     testsuite(2) = new_unittest("decompress_lower_triangular", test_decompress_lower_triangular)
     testsuite(3) = new_unittest("initialize_symmetric_matrix", test_initialize_symmetric_matrix)
 
-  end subroutine collect_math_utilities_test
+  end subroutine collect_pic_math_utils_test
 
   subroutine test_compress_lower_triangular(error)
     type(error_type), allocatable, intent(out) :: error
@@ -111,4 +111,4 @@ module test_math_utilities
 
   end subroutine test_initialize_symmetric_matrix
 
-end module test_math_utilities
+end module test_pic_math_utils

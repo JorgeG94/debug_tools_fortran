@@ -1,5 +1,5 @@
 MODULE integrator
-  USE types_module, ONLY: default_real, default_int
+  USE pic_types, ONLY: default_real, default_int
   IMPLICIT NONE
 
 CONTAINS
@@ -8,7 +8,7 @@ CONTAINS
     IMPLICIT NONE
     INTERFACE
       FUNCTION func(x) RESULT(f)
-        USE types_module, ONLY: default_real
+        USE pic_types, ONLY: default_real
         REAL(KIND=default_real), INTENT(IN) :: x
         REAL(KIND=default_real) :: f
       END FUNCTION func
@@ -32,7 +32,7 @@ CONTAINS
     IMPLICIT NONE
     INTERFACE
       FUNCTION func(x) RESULT(f)
-        USE types_module, ONLY: default_real
+        USE pic_types, ONLY: default_real
         REAL(KIND=default_real), INTENT(IN) :: x
         REAL(KIND=default_real) :: f
       END FUNCTION func

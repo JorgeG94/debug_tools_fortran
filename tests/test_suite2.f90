@@ -1,16 +1,16 @@
-module test_string_utilities
+module test_pic_string_utils
   use testdrive, only: new_unittest, unittest_type, error_type, check
-  use string_utilities, only: to_string, operator(+)
-  use types_module, only: int32, int64, dp
+  use pic_string_utils, only: to_string, operator(+)
+  use pic_types, only: int32, int64, dp
   implicit none
   private
 
-  public :: collect_string_utilities_tests
+  public :: collect_pic_string_utils_tests
 
 contains
 
-  !> Collect all tests for string_utilities module
-  subroutine collect_string_utilities_tests(testsuite2)
+  !> Collect all tests for pic_string_utils module
+  subroutine collect_pic_string_utils_tests(testsuite2)
     type(unittest_type), allocatable, intent(out) :: testsuite2(:)
     integer, parameter :: ntests = 6
     allocate(testsuite2(ntests))
@@ -21,7 +21,7 @@ contains
     testsuite2(5) = new_unittest("test_to_string_logical", test_to_string_logical)
     testsuite2(6) = new_unittest("test_concatenate_strings", test_concatenate_strings)
 
-  end subroutine collect_string_utilities_tests
+  end subroutine collect_pic_string_utils_tests
 
   !> Test: to_string for int32
   subroutine test_to_string_int32(error)
@@ -81,4 +81,4 @@ contains
     call check(error, result == "Hello, world!")
   end subroutine test_concatenate_strings
 
-end module test_string_utilities
+end module test_pic_string_utils

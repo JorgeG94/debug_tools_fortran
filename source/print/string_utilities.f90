@@ -1,5 +1,5 @@
-module string_utilities
-   use types_module
+module pic_string_utils
+   use pic_types
    implicit none
    ! Generic interface for to_string to handle different types
    interface to_string
@@ -71,4 +71,4 @@ contains
    end function to_string_logical
 
 
-end module string_utilities
+end module pic_string_utils

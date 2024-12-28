@@ -1,5 +1,5 @@
-module blas_interfaces
-  use types_module
+module pic_blas_interfaces
+  use pic_types
   implicit none
 
   interface gemm
@@ -70,4 +70,4 @@ pure subroutine dgemv(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
     integer(kind=int64), intent(in) :: incy
 end subroutine dgemv
 end interface gemv
-end module blas_interfaces
+end module pic_blas_interfaces

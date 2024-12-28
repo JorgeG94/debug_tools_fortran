@@ -1,7 +1,7 @@
 module test_integrator_suite
   use testdrive, only: new_unittest, unittest_type, error_type, check, test_failed
   use integrator, only: simpson_integral
-  use types_module, only: dp
+  use pic_types, only: dp
   use, intrinsic :: iso_fortran_env, only: error_unit
   implicit none
   private

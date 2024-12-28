@@ -1,4 +1,4 @@
-module math_utilities
+module pic_math_utils
   implicit none
   contains
 SUBROUTINE compress_lower_triangular(full_matrix, packed_matrix, M)
@@ -63,4 +63,4 @@ SUBROUTINE initialize_symmetric_matrix(A, N)
 
 
 END SUBROUTINE initialize_symmetric_matrix
-end module math_utilities
+end module pic_math_utils

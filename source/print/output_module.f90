@@ -1,6 +1,6 @@
-module output_module
-  use types_module
-  use output_helpers
+module pic_output
+  use pic_types
+  use pic_output_helpers
   implicit none
   private
 
@@ -119,4 +119,4 @@ contains
     stop
   end subroutine fatal_error
 
-end module output_module
+end module pic_output

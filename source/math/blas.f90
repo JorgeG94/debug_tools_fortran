@@ -1,7 +1,7 @@
-module blas_provider
-  use types_module
-  use math_utilities
-  use blas_interfaces
+module pic_blas_provider
+  use pic_types
+  use pic_math_utils
+  use pic_blas_interfaces
   implicit none
 
   contains
@@ -111,4 +111,4 @@ SUBROUTINE by_column_transform(H,F,T,WRK,M,N,LDT)
    RETURN
 END subroutine by_column_transform
 
-end module blas_provider
+end module pic_blas_provider
