@@ -6,8 +6,8 @@ module pic_comm
    type :: comm
       private
       type(MPI_Comm) :: m_comm = MPI_COMM_NULL
-      integer(int32) :: m_size
-      integer(int32) :: m_rank
+      integer(int32) :: m_size = -1
+      integer(int32) :: m_rank = -1
    contains
       procedure :: init => comm_init
       procedure :: finalize => comm_finalize

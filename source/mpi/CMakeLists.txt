@@ -1,1 +1,1 @@
-target_sources(${print_lib} PRIVATE comm.f90)
+target_sources(${resource_lib} PRIVATE comm.f90)

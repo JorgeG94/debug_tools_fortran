@@ -54,21 +54,21 @@ add_compile_options(
   -fimplicit-none)
 
 # Create the static library
-set(print_lib printing_library)
-set(math_lib math_library)
+set(resource_lib pic_resources)
+set(math_lib pic_math)
 set(debug_exec_name ${project_name})
 
-add_library(${print_lib} STATIC)
+add_library(${resource_lib} STATIC)
 add_library(${math_lib} STATIC)
 
-target_link_libraries(${print_lib} PRIVATE MPI::MPI_Fortran)
+target_link_libraries(${resource_lib} PRIVATE MPI::MPI_Fortran)
 target_link_libraries(
-  ${math_lib} PRIVATE ${print_lib}
+  ${math_lib} PRIVATE ${resource_lib}
                       ${PROJECT_SOURCE_DIR}/lib/test-drive/lib/libtest-drive.a)
 
 # Set the library output and module directories
 set_target_properties(
-  ${print_lib}
+  ${resource_lib}
   PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
              Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules")
 set_target_properties(
@@ -89,5 +89,5 @@ target_include_directories(${debug_exec_name}
 # the executable
 target_link_libraries(
   ${debug_exec_name}
-  PRIVATE ${print_lib} BLAS::BLAS LAPACK::LAPACK MPI::MPI_Fortran
+  PRIVATE ${resource_lib} BLAS::BLAS LAPACK::LAPACK MPI::MPI_Fortran
           ${PROJECT_SOURCE_DIR}/lib/test-drive/lib/libtest-drive.a)
