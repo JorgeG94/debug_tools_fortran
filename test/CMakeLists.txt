@@ -13,7 +13,7 @@ set_target_properties(
              Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules")
 target_link_libraries(
   "${project_name}-tester"
-  PRIVATE "${math_lib}" "${print_lib}"
+  PRIVATE "${math_lib}" "${resource_lib}"
           ${PROJECT_SOURCE_DIR}/lib/test-drive/lib/libtest-drive.a)
 
 foreach(t IN LISTS tests)

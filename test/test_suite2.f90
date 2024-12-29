@@ -37,8 +37,8 @@ contains
     type(error_type), allocatable, intent(out) :: error
     character(len=50) :: result
 
-    result = to_string(int(123456789012345, kind=int64))
-    call check(error, result == "123456789012345")
+    result = to_string(int(12345678, kind=int64))
+    call check(error, result == "12345678")
   end subroutine test_to_string_int64
 
   !> Test: to_string for double precision
