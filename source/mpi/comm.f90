@@ -19,20 +19,20 @@ module pic_comm
 
 contains
 
-  function World() result(new_comm)
+  function world() result(new_comm)
     type(Comm) :: new_comm
     type(MPI_Comm) :: world_comm
     call MPI_Comm_dup(MPI_COMM_WORLD, world_comm)
     call new_comm%init(world_comm)
-  end function World
+  end function world
 
-   subroutine Comm_init(this, mpicomm)
+   subroutine comm_init(this, mpicomm)
       class(comm), intent(inout) :: this
       type(MPI_Comm), intent(in) :: mpicomm
       call MPI_COMM_SIZE(mpicomm, this%m_size)
       call MPI_COMM_RANK(mpicomm, this%m_rank)
       this%m_comm = mpicomm
-   end subroutine Comm_init
+   end subroutine comm_init
 
    subroutine Comm_finalize(this)
       class(comm), intent(inout) :: this
