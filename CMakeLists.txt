@@ -19,6 +19,7 @@ enable_testing()
 include(ExternalProject)
 find_package(BLAS)
 find_package(LAPACK)
+find_package(MPI)
 # Set the source directory path
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
 
@@ -60,6 +61,7 @@ set(debug_exec_name ${project_name})
 add_library(${print_lib} STATIC)
 add_library(${math_lib} STATIC)
 
+target_link_libraries(${print_lib} PRIVATE MPI::MPI_Fortran)
 target_link_libraries(
   ${math_lib} PRIVATE ${print_lib}
                       ${PROJECT_SOURCE_DIR}/lib/test-drive/lib/libtest-drive.a)
@@ -87,5 +89,5 @@ target_include_directories(${debug_exec_name}
 # the executable
 target_link_libraries(
   ${debug_exec_name}
-  PRIVATE ${print_lib} BLAS::BLAS LAPACK::LAPACK
+  PRIVATE ${print_lib} BLAS::BLAS LAPACK::LAPACK MPI::MPI_Fortran
           ${PROJECT_SOURCE_DIR}/lib/test-drive/lib/libtest-drive.a)
