@@ -11,13 +11,16 @@ auto-executables = true
 auto-tests = true
 auto-examples = true
 module-naming = false
+link = ["openblas"]
 [install]
 library = false
 [fortran]
-implicit-typing = false
-implicit-external = false
+implicit-typing = true
+implicit-external = true
 source-form = "free"
 
 [dependencies]
-stdlib="*"
+#stdlib="*"
 test-drive.git = "https://github.com/fortran-lang/test-drive"
+openmp = "*"
+mpi = "*"

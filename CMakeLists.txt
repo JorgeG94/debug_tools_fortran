@@ -77,7 +77,7 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/lib/test-drive/include/test-drive/${CMAKE_Fortran_COMPILER_ID}-${CMAKE_Fortran_COMPILER_VERSION}
 )
 add_subdirectory(source)
-add_subdirectory(tests)
+add_subdirectory(test)
 add_executable(${debug_exec_name} ${PROJECT_SOURCE_DIR}/app/main.f90)
 # Set the module directory for the executable
 target_include_directories(${debug_exec_name}
