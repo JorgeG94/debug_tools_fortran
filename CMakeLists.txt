@@ -24,17 +24,17 @@ find_package(MPI)
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
 
 if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
-  add_compile_options(-fdefault-integer-8)
+  # add_compile_options(-fdefault-integer-8)
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "Intel")
-  add_compile_options(-integer-size 64)
+  # add_compile_options(-integer-size 64)
 endif()
 set(test-drive_version 0.5.0)
 ExternalProject_Add(
   test-drive
   URL https://github.com/fortran-lang/test-drive/archive/refs/tags/v${test-drive_version}.tar.gz
   PREFIX ${PROJECT_SOURCE_DIR}/external/test-drive
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/lib/test-drive
-             -DCMAKE_Fortran_FLAGS="-fdefault-integer-8")
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/lib/test-drive)
+# -DCMAKE_Fortran_FLAGS="-fdefault-integer-8")
 # add_compile_options(-Wimplicit-interface -Wimplicit-procedure)
 add_compile_options(-pedantic -Wampersand -Wsurprising -std=f2018)
 add_compile_options(

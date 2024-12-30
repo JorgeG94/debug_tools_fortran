@@ -6,8 +6,8 @@ module pic_comm
    type :: comm
       private
       type(MPI_Comm) :: m_comm = MPI_COMM_NULL
-      integer(int32) :: m_size = -1
-      integer(int32) :: m_rank = -1
+      integer(kind=int32) :: m_size = -1
+      integer(kind=int32) :: m_rank = -1
    contains
       procedure :: init => comm_init
       procedure :: finalize => comm_finalize
@@ -34,13 +34,13 @@ contains
 
    function comm_size(this) result(size)
       class(comm), intent(in) :: this
-      integer(int32) :: size
+      integer(kind=int32) :: size
       size = this%m_size
    end function comm_size
 
    function comm_rank(this) result(rank)
       class(comm), intent(in) :: this
-      integer(int32) :: rank
+      integer(kind=int32) :: rank
       rank = this%m_rank
    end function comm_rank
 

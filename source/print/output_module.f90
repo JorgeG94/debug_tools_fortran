@@ -6,7 +6,7 @@ module pic_output
 
   ! Define verbosity type with encapsulated verbosity level
   type :: Logger
-    integer(kind=int64) :: level = 4
+    integer(kind=default_int) :: level = 4
   contains
     procedure :: set_verbosity
     procedure :: debug
@@ -19,14 +19,14 @@ module pic_output
   end type Logger
 
   ! Define verbosity levels as public constants
-  integer(kind=int64), parameter :: VERBOSITY_DEBUG = 6
-  integer(kind=int64), parameter :: VERBOSITY_VERBOSE = 5
-  integer(kind=int64), parameter :: VERBOSITY_STANDARD = 4
-  integer(kind=int64), parameter :: VERBOSITY_INFO = 3
-  integer(kind=int64), parameter :: VERBOSITY_MINIMAL = 2
-  integer(kind=int64), parameter :: VERBOSITY_WARNING = 1
-  integer(kind=int64), parameter :: VERBOSITY_ERROR = 0
-  integer(kind=int64), parameter :: asterisk_level = 15
+  integer(kind=default_int), parameter :: VERBOSITY_DEBUG = 6
+  integer(kind=default_int), parameter :: VERBOSITY_VERBOSE = 5
+  integer(kind=default_int), parameter :: VERBOSITY_STANDARD = 4
+  integer(kind=default_int), parameter :: VERBOSITY_INFO = 3
+  integer(kind=default_int), parameter :: VERBOSITY_MINIMAL = 2
+  integer(kind=default_int), parameter :: VERBOSITY_WARNING = 1
+  integer(kind=default_int), parameter :: VERBOSITY_ERROR = 0
+  integer(kind=default_int), parameter :: asterisk_level = 15
 
   public :: Logger
 

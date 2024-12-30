@@ -1,11 +1,12 @@
 module pic_math_utils
+  use pic_types
   implicit none
   contains
 SUBROUTINE compress_lower_triangular(full_matrix, packed_matrix, M)
   IMPLICIT NONE
 
   ! Input/Output arguments
-  INTEGER(kind=8), intent(in) :: M
+  INTEGER(kind=default_int), intent(in) :: M
   DOUBLE PRECISION, DIMENSION(M, M), INTENT(IN) :: full_matrix  ! Full symmetric matrix
   DOUBLE PRECISION, DIMENSION((M * (M + 1)) / 2), INTENT(OUT) :: packed_matrix  ! Packed output array
 
@@ -27,8 +28,8 @@ END SUBROUTINE compress_lower_triangular
 
 SUBROUTINE decompress_lower_triangular(packed_matrix, full_matrix, M)
   IMPLICIT NONE
-  INTEGER(kind=8), intent(in) :: M
-  integer :: I, J, IJ
+  INTEGER(kind=default_int), intent(in) :: M
+  integer(kind=default_int) :: I, J, IJ
   DOUBLE PRECISION, DIMENSION((M * (M + 1)) / 2) :: packed_matrix
   DOUBLE PRECISION, DIMENSION(M, M) :: full_matrix
 
@@ -45,9 +46,9 @@ END SUBROUTINE decompress_lower_triangular
 
 SUBROUTINE initialize_symmetric_matrix(A, N)
   IMPLICIT NONE
-  INTEGER, INTENT(IN) :: N
+  INTEGER(kind=default_int), INTENT(IN) :: N
   DOUBLE PRECISION, INTENT(INOUT) :: A(N,N)
-  INTEGER :: i, j
+  INTEGER(kind=default_int) :: i, j
 
   CALL random_seed()
 

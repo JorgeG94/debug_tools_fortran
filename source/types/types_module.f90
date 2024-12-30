@@ -9,7 +9,7 @@ MODULE pic_types
   INTEGER, PARAMETER :: qp = SELECTED_REAL_KIND(33, 4931)
 
   ! Define default types
-  INTEGER, PARAMETER :: default_int = int64
+  INTEGER, PARAMETER :: default_int = int32
   INTEGER, PARAMETER :: default_real = dp
   INTEGER, PARAMETER :: default_complex = dp
 

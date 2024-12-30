@@ -39,7 +39,7 @@ contains
       double precision, intent(in) :: vec(:)
       character(len=*), intent(in), optional :: format_type
       character(len=20) :: format_selected
-      integer(kind=int64), intent(in) :: n_elements
+      integer(kind=default_int), intent(in) :: n_elements
       ! Determine the format: default to "PLAIN" if not specified
       if (present(format_type)) then
          format_selected = trim(adjustl(format_type))
@@ -56,7 +56,7 @@ contains
    ! Subroutine to print a vector (1D array)
    subroutine print_vector(vec, format_type)
       implicit none
-      real(8), intent(in) :: vec(:)  ! 1D array
+      real(kind=dp), intent(in) :: vec(:)  ! 1D array
       character(len=*), intent(in), optional :: format_type
       character(len=20) :: format_selected
 
@@ -77,8 +77,8 @@ contains
    ! Subroutine to print a matrix (2D array)
    subroutine print_matrix_m_n(mat, n_cols, n_rows, format_type)
       implicit none
-      real(8), intent(in) :: mat(:, :)  ! 2D array
-      integer(kind=int64), intent(in) :: n_cols, n_rows
+      real(kind=dp), intent(in) :: mat(:, :)  ! 2D array
+      integer(kind=default_int), intent(in) :: n_cols, n_rows
       character(len=*), intent(in), optional :: format_type
       character(len=20) :: format_selected
       ! Determine the format: default to "PLAIN" if not specified
@@ -98,7 +98,7 @@ contains
    ! Subroutine to print a matrix (2D array)
    subroutine print_matrix(mat, format_type)
       implicit none
-      real(8), intent(in) :: mat(:, :)  ! 2D array
+      real(kind=dp), intent(in) :: mat(:, :)  ! 2D array
       character(len=*), intent(in), optional :: format_type
       character(len=20) :: format_selected
       ! Determine the format: default to "PLAIN" if not specified
@@ -118,9 +118,9 @@ contains
    ! Private subroutine to print plain format for vectors
    subroutine print_plain_vector(vec, n_elements)
       implicit none
-      real(8), intent(in) :: vec(:)
-      integer(kind=int64), intent(in), optional :: n_elements
-      integer(kind=int64) :: i, loop_bound
+      real(kind=dp), intent(in) :: vec(:)
+      integer(kind=default_int), intent(in), optional :: n_elements
+      integer(kind=default_int) :: i, loop_bound
       if (present(n_elements)) then
          loop_bound = n_elements
       else
@@ -135,9 +135,9 @@ contains
    ! Private subroutine to print plain format for matrices
    subroutine print_plain_matrix(mat, n_cols, n_rows)
       implicit none
-      real(8), intent(in) :: mat(:, :)
-      integer(kind=int64), intent(in), optional :: n_cols, n_rows
-      integer(kind=int64) :: i, j, loop_bound_i, loop_bound_j
+      real(kind=dp), intent(in) :: mat(:, :)
+      integer(kind=default_int), intent(in), optional :: n_cols, n_rows
+      integer(kind=default_int) :: i, j, loop_bound_i, loop_bound_j
       if (present(n_cols) .and. present(n_rows)) then
          loop_bound_i = n_cols
          loop_bound_j = n_rows
@@ -160,11 +160,11 @@ contains
    ! Subroutine to print vector in a specific format (NumPy/Mathematica)
    subroutine print_vector_in_format(vec, format_type, n_elements)
       implicit none
-      real(8), intent(in) :: vec(:)
+      real(kind=dp), intent(in) :: vec(:)
       character(len=*), intent(in) :: format_type
-      integer(kind=int64), intent(in), optional :: n_elements
+      integer(kind=default_int), intent(in), optional :: n_elements
       character(len=1) :: open_bracket, close_bracket
-      integer(kind=int64) :: i, loop_bound_i
+      integer(kind=default_int) :: i, loop_bound_i
 
       if (present(n_elements)) then
          loop_bound_i = n_elements
@@ -199,11 +199,11 @@ contains
    ! Subroutine to print matrix in a specific format (NumPy/Mathematica)
    subroutine print_matrix_in_format(mat, format_type, n_cols, n_rows)
       implicit none
-      real(8), intent(in) :: mat(:, :)
+      real(kind=dp), intent(in) :: mat(:, :)
       character(len=*), intent(in) :: format_type
       character(len=1) :: open_bracket, close_bracket
-      integer(kind=int64), intent(in), optional :: n_cols, n_rows
-      integer(kind=int64) :: i, j, loop_bound_i, loop_bound_j
+      integer(kind=default_int), intent(in), optional :: n_cols, n_rows
+      integer(kind=default_int) :: i, j, loop_bound_i, loop_bound_j
       if (present(n_cols) .and. present(n_rows)) then
          loop_bound_i = n_cols
          loop_bound_j = n_rows
