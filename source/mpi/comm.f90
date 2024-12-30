@@ -16,7 +16,6 @@ module pic_comm
       procedure :: size => comm_size
    end type comm
 
-
 contains
 
    function world() result(new_comm)
@@ -61,7 +60,5 @@ contains
          this%m_rank = -1
       end if
    end subroutine comm_finalize
-
-
 
 end module pic_comm

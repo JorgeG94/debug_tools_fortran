@@ -1,6 +1,13 @@
 
 ---
 repos:
+  - repo: local
+    hooks:
+      - id: fortran-fprettify
+        name: Fortran fprettify
+        entry: fprettify
+        language: system
+        files: \.(f90|F90|f95|F95|f03|F03|for|FOR|ftn|FTN)$
   - repo: https://github.com/cheshirekow/cmake-format-precommit
     rev: v0.6.13
     hooks:
