@@ -16,6 +16,7 @@ module pic_comm
       procedure :: size => comm_size
       procedure :: is_null => comm_is_null
       procedure :: get => comm_get_mpi_comm
+      procedure :: barrier => comm_barrier
    end type comm
 
 contains
@@ -61,6 +62,19 @@ contains
          mpicomm = this%m_comm
       end if
    end function comm_get_mpi_comm
+
+   function comm_split(this) result(new_comm)
+      class(comm), intent(in) :: this
+      type(comm) :: new_comm
+      type(MPI_Comm) :: new_mpi_comm
+      call mpi_comm_split_type(this%m_comm, MPI_COMM_TYPE_SHARED, 0, MPI_INFO_NULL, new_mpi_comm)
+      call new_comm%init(new_mpi_comm)
+   end function comm_split
+
+   subroutine comm_barrier(this)
+      class(comm), intent(in) :: this
+      call mpi_barrier(this%m_comm)
+   end subroutine comm_barrier
 
    subroutine comm_init(this, mpicomm)
       class(comm), intent(inout) :: this
