@@ -4,8 +4,8 @@ module pic_output
    implicit none
    private
 
-   ! Define verbosity type with encapsulated verbosity level
    type :: Logger
+    !! A simple logger class for outputting messages at different verbosity levels
       integer(kind=default_int) :: level = 4
    contains
       procedure :: set_verbosity

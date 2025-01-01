@@ -1,4 +1,5 @@
-module debugging_tools
+module pic_debugging_tools
+!! simple single include for printing routines
    use pic_message_printer
    use pic_matrix_printer
    use pic_string_utils
@@ -6,4 +7,4 @@ module debugging_tools
 
 contains
 
-end module debugging_tools
+end module pic_debugging_tools

@@ -14,6 +14,8 @@ module pic_comm
       procedure :: leader => comm_leader
       procedure :: rank => comm_rank
       procedure :: size => comm_size
+      procedure :: is_null => comm_is_null
+      procedure :: get => comm_get_mpi_comm
    end type comm
 
 contains
@@ -42,6 +44,23 @@ contains
       integer(kind=int32) :: rank
       rank = this%m_rank
    end function comm_rank
+
+   function comm_is_null(this) result(is_null)
+      class(comm), intent(in) :: this
+      logical :: is_null
+      is_null = (this%m_comm == MPI_COMM_NULL)
+   end function comm_is_null
+
+   function comm_get_mpi_comm(this) result(mpicomm)
+      class(comm), intent(in) :: this
+      type(MPI_Comm) :: mpicomm
+      if (this%is_null()) then
+         write (*, *) "Error: MPI communicator is null"
+         stop
+      else
+         mpicomm = this%m_comm
+      end if
+   end function comm_get_mpi_comm
 
    subroutine comm_init(this, mpicomm)
       class(comm), intent(inout) :: this
