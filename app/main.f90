@@ -1,8 +1,8 @@
 program testing
-   use debugging_tools
+   use pic_debugging_tools
    use pic_output
-   use mpi_f08
    use pic_comm
+   use mpi_f08
    implicit none
    double precision :: a_double = 2.0
    type(Logger) :: logging
