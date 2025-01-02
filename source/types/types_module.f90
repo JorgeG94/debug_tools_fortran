@@ -1,32 +1,22 @@
-MODULE pic_types
-   IMPLICIT NONE
+module pic_types
+   !! main module for defining types for integer and double precision
+   use iso_fortran_env
+   implicit none
 
    ! Define kinds for different data types
-   INTEGER, PARAMETER :: int64 = SELECTED_INT_KIND(18)
-   INTEGER, PARAMETER :: int32 = SELECTED_INT_KIND(9)
-   INTEGER, PARAMETER :: sp = SELECTED_REAL_KIND(6, 37)
-   INTEGER, PARAMETER :: dp = SELECTED_REAL_KIND(15, 307)
-   INTEGER, PARAMETER :: qp = SELECTED_REAL_KIND(33, 4931)
+   ! int32 and int64 are defined in the iso_fortran_env, if you need to change things please do so here
+   !integer, parameter :: int64_custom = SELECTED_INT_KIND(18)
+   !integer, parameter :: int32_custom = SELECTED_INT_KIND(9)
+   integer, parameter :: sp = SELECTED_REAL_KIND(6, 37)
+   integer, parameter :: dp = SELECTED_REAL_KIND(15, 307)
+   integer, parameter :: qp = SELECTED_REAL_KIND(33, 4931)
 
    ! Define default types
-   INTEGER, PARAMETER :: default_int = int32
-   INTEGER, PARAMETER :: default_real = dp
-   INTEGER, PARAMETER :: default_complex = dp
+   integer, parameter :: default_int = int32
+    !! default integer kind, be careful if you are using fdefault-size=8
+   integer, parameter :: default_real = dp
+     !! naturally, our default real is double precision
+   integer, parameter :: default_complex = dp
+     !! default complex is double precision
 
-   TYPE, PUBLIC :: DPType
-      REAL(KIND=default_real) :: value
-   END TYPE DPType
-
-   TYPE, PUBLIC :: Int8Type
-      INTEGER(KIND=default_int) :: value
-   END TYPE Int8Type
-
-   TYPE, PUBLIC :: LogicalType
-      LOGICAL :: value
-   END TYPE LogicalType
-
-   TYPE, PUBLIC :: ComplexDPType
-      COMPLEX(KIND=default_complex) :: value
-   END TYPE ComplexDPType
-
-END MODULE pic_types
+end module pic_types
